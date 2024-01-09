@@ -1,9 +1,9 @@
 function $(_) {return document.getElementById(_);}
 let provider= {};
 let signer= {};
-window.addEventListener('load',async function()
-{
-	$("cw_m").innerHTML = "Connecting.. Please wait."
+window.addEventListener('load',async function() {
+	$("cw_m").innerHTML = "Connecting.. Please wait.";
+	$("ref-code").value = new URLSearchParams(window.location.search).get("r");
 	setTimeout(async () => { await basetrip(); arf(); dexstats(); }, 3000);
 }, false);
 
@@ -63,9 +63,9 @@ function fornum(n,d)
 	else if(_n>1e12){n_=(_n/1e12).toFixed(3)+"T"}
 	else if(_n>1e9){n_=(_n/1e9).toFixed(3)+"B"}
 	else if(_n>1e6){n_=(_n/1e6).toFixed(3)+"M"}
-	else if(_n>1e3){n_=(_n/1e3).toFixed(3)+"K"}
-	else if(_n>1e1){n_=(_n/1e0).toFixed(5)+""}
-	else if(_n>0.0){n_=(_n/1e0).toFixed(8)+""}
+	else if(_n>1e4){n_=(_n/1e3).toFixed(3)+"K"}
+	else if(_n>1e1){n_=(_n/1e0).toFixed(4)+""}
+	else if(_n>0.0){n_=(_n/1e0).toFixed(4)+""}
 	return(n_);
 }
 
@@ -118,17 +118,17 @@ function fornum2(n,d)
 aval = $("lock-amt").value;
 
 function arf() {
-	var xfr = setInterval(function() {
+	var xfr = setInterval(async function() {
 
 		if(!(aval == $("lock-amt").value)) {
 			aval = $("lock-amt").value;
-			vme = new ethers.Contract(VME, VMEABI, provider);
-			vme.offer(BigInt(aval * 1e18)).then(r => {
-				let result = (Number(r) - aval * 1e18) / 1e18;
-				let formattedResult = result.toLocaleString('fullwide', { maximumFractionDigits: 8, useGrouping: false });
-				$("nft-offer").innerHTML = "+" + formattedResult + " veSCALE";
-			});
-
+			_R = new ethers.Contract(REFC, ["function lockBonus() public view returns(uint)","function refBonus() public view returns(uint)"],provider);
+			_bonuses = await Promise.all([
+				_R.lockBonus(),
+				_R.refBonus()
+			]);
+			$("nft-offer").innerHTML = fornum(aval * _bonuses[0] / 1e18, 0);
+			$("nft-refbonus").innerHTML = fornum(aval * _bonuses[1] / 1e18, 0);
 		}
 	},
 	1000);
@@ -138,7 +138,9 @@ VEABI = [{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","
 
 VMABI = [{"anonymous": false,"inputs": [{"indexed": true,"internalType": "address","name": "seller","type": "address"},{"indexed": false,"internalType": "uint256","name": "id","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "paid","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "locked","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "wks","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "wen","type": "uint256"}],"name": "Sale","type": "event"},{"inputs": [{"internalType": "address","name": "_to","type": "address"},{"internalType": "bytes","name": "_data","type": "bytes"}],"name": "customCall","outputs": [{"internalType": "bytes","name": "","type": "bytes"}],"stateMutability": "payable","type": "function"},{"inputs": [{"internalType": "address","name": "to","type": "address"},{"internalType": "uint256","name": "amount","type": "uint256"},{"internalType": "bytes","name": "_data","type": "bytes"}],"name": "customCall","outputs": [{"internalType": "bytes","name": "","type": "bytes"}],"stateMutability": "payable","type": "function"},{"inputs": [{"internalType": "address[]","name": "_tos","type": "address[]"},{"internalType": "uint256[]","name": "_amounts","type": "uint256[]"},{"internalType": "bytes[]","name": "_datas","type": "bytes[]"}],"name": "customCall","outputs": [{"internalType": "bytes[]","name": "retdata","type": "bytes[]"}],"stateMutability": "payable","type": "function"},{"inputs": [],"name": "dao","outputs": [{"internalType": "address","name": "","type": "address"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "v","type": "uint256"}],"name": "getQuote","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "v","type": "uint256"}],"name": "getQuoted","outputs": [{"internalType": "uint256","name": "","type": "uint256"},{"internalType": "uint256","name": "","type": "uint256"},{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "a","type": "uint256"},{"internalType": "uint256","name": "w","type": "uint256"}],"name": "getRawQuote","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "pure","type": "function"},{"inputs": [],"name": "homeID","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256[]","name": "f","type": "uint256[]"},{"internalType": "uint256","name": "t","type": "uint256"}],"name": "multiMerge","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [],"name": "offerPrice","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "offerToken","outputs": [{"internalType": "address","name": "","type": "address"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"},{"internalType": "address","name": "","type": "address"},{"internalType": "uint256","name": "","type": "uint256"},{"internalType": "bytes","name": "","type": "bytes"}],"name": "onERC721Received","outputs": [{"internalType": "bytes4","name": "","type": "bytes4"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "tokensPaid","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "tradesCounter","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "tokenAddress","type": "address"},{"internalType": "uint256","name": "tokens","type": "uint256"}],"name": "rescue","outputs": [{"internalType": "bool","name": "success","type": "bool"}],"stateMutability": "nonpayable","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "sales","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "veid","type": "uint256"}],"name": "sell","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [{"internalType": "uint256","name": "id","type": "uint256"}],"name": "setHomeID","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [{"internalType": "address","name": "t","type": "address"},{"internalType": "uint256","name": "p","type": "uint256"}],"name": "setOffer","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [],"name": "totalTrades","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "totalVolume","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "veToken","outputs": [{"internalType": "address","name": "","type": "address"}],"stateMutability": "view","type": "function"}]
 
-VMEABI = [{"inputs":[{"internalType":"address","name":"_ve","type":"address"},{"internalType":"address","name":"_eq","type":"address"},{"internalType":"address","name":"_vo","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"EQ","outputs":[{"internalType":"contract IT","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FACTOR","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAXTIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"VE","outputs":[{"internalType":"contract IVe","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"VO","outputs":[{"internalType":"contract IVo","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"extend","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"initiate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"offer","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"uint256","name":"tokens","type":"uint256"}],"name":"rescue","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_f","type":"uint256"}],"name":"setFactor","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+//VMEABI = [{"inputs":[{"internalType":"address","name":"_ve","type":"address"},{"internalType":"address","name":"_eq","type":"address"},{"internalType":"address","name":"_vo","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"EQ","outputs":[{"internalType":"contract IT","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FACTOR","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAXTIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"VE","outputs":[{"internalType":"contract IVe","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"VO","outputs":[{"internalType":"contract IVo","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"extend","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"initiate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"offer","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"uint256","name":"tokens","type":"uint256"}],"name":"rescue","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_f","type":"uint256"}],"name":"setFactor","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+VMEABI = {"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "earnedRefBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "_amt","type": "uint256"},{"internalType": "uint256","name": "_nft","type": "uint256"},{"internalType": "uint256","name": "_ref","type": "uint256"}],"name": "lock","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [],"name": "lockBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "refBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"}];
+
 async function gubs() {
 	veq = new ethers.Contract(VENFT, VEABI, provider);
 	eq = new ethers.Contract(SCALE, ["function balanceOf(address) public view returns(uint)"], provider);
@@ -165,9 +167,13 @@ async function gubs() {
 	  	  <option value='${nids[i]}'>#${nids[i]} : ${fornum(Number(balids[i][0]),18)} </option>
 	  	`
 	  }
-	  refids = await Promise.all(refid);
-	  refids.reduce
-	  $("nft-sel").innerHTML = '<option value="" selected>Choose a NFT</option>';
+	  refidsall = await Promise.all(refid);
+	  refids=nids.filter( (a,i) => refidsall[i] );
+	  $("ref-desc").innerHTML = `
+	  	You have ${refids.length} Referral Codes.
+	  	<br>
+	  	<i>${refids.join(", ")}</i>
+	  `;
 	}
 
 }
@@ -191,8 +197,9 @@ async function extend() {
 	if(_id<1) { notice("<h3>Please Select a veNFT first!</h3>"); return;}
 	_am = $("lock-amt").value;
 	veq = new ethers.Contract(VENFT, VEABI, signer);
-	vme = new ethers.Contract(VME, VMEABI, signer);
-	eq = new ethers.Contract(SCALE, ["function approve(address,uint)", "function allowance(address,address) public view returns(uint)"], signer);
+	VME = REFC;
+	vme = new ethers.Contract(VME, ["function lock(uint,uint,uint)"], signer);
+	eq = new ethers.Contract(BASE, ["function approve(address,uint)", "function allowance(address,address) public view returns(uint)"], signer);
 	al = await Promise.all([
 		veq.isApprovedOrOwner(VME, _id),
 		eq.allowance(window.ethereum.selectedAddress, VME)
@@ -208,13 +215,13 @@ async function extend() {
 		console.log(_tr)
 		notice(`
 			<h3>Submitting veNFT Approval Transaction!</h3>
-			<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 		`);
 		_tw = await _tr.wait()
 		console.log(_tw)
 		notice(`
 			<h3>Approval Completed!</h3>
-			<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 			<br>
 			Please confirm the remaining transaction(s) at your wallet provider now.
 		`);
@@ -231,14 +238,14 @@ async function extend() {
 		console.log(_tr)
 		notice(`
 			<h3>Submitting SCALE Approval Transaction!</h3>
-			<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 		`);
 		_tw = await _tr.wait()
 		console.log(_tw)
 		notice(`
 			<h3>Approval Completed!</h3>
 			<br><br>
-			<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 			<br><br>
 			Please confirm the remaining transaction(s) at your wallet provider now.
 		`);
@@ -249,7 +256,7 @@ async function extend() {
 	_q = [ _pqt[0], _pqt[1][0], Math.floor((Number(_pqt[1][1])*1e3-Date.now()) /1e3/86400/7) ];
 	notice(`
 		<h3>Order Summary</h3>
-		<img style='height:20px;position:relative;top:4px' src="https://base.equalizer.exchange/assets/base/token/0x54016a4848a38f257b6e96331f7404073fd9c32c.png"> <b>Extending old Lock:</b><br>
+		<img style='height:20px;position:relative;top:4px' src="BASE_LOGO"> <b>Extending old Lock:</b><br>
 		Amount to add: <b>${_am} SCALE</b><br>
 		NFT Token ID: <u>#<b>${_id}</b></u><br>
 		<h3>Current Position</h3>
@@ -261,7 +268,12 @@ async function extend() {
 		Time to Unlock: 26 weeks<br><br><br>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`)
-	let _tr = await vme.extend(_id,BigInt(_am*1e18));
+	_ref_id = $("ref-code").value;
+	if( !isFinite(_ref_id) ) {
+		notice("Referral Code not valid!");
+		return;
+	}
+	let _tr = await vme.lock(BigInt(_am*1e18) , _id, _ref_id);
 	console.log(_tr)
 	notice(`
 		<h3>Transaction Submitted!</h3>
@@ -274,7 +286,7 @@ async function extend() {
 		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
 		<h3>Expected new unlock time:</h3>
 		Time to Unlock: 26 weeks<br><br><br>
-		<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 	`)
 	_tw = await _tr.wait()
 	console.log(_tw)
@@ -284,7 +296,7 @@ async function extend() {
 		<h3>Current Position</h3>
 		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
 		Time to Unlock: 26 weeks<br><br><br>
-		<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 	`)
 	gubs()
 }
@@ -294,6 +306,7 @@ async function initiate() {
 	///if(_id>1) { notice("<h3>Please De-Select a veNFT first!</h3>"); return;}
 	_am = $("lock-amt").value;
 	veq = new ethers.Contract(VENFT, VEABI, signer);
+	VME = REFC
 	vme = new ethers.Contract(VME, VMEABI, signer);
 	eq = new ethers.Contract(SCALE, ["function approve(address,uint)", "function allowance(address,address) public view returns(uint)"], signer);
 	al = await Promise.all([
@@ -312,14 +325,14 @@ async function initiate() {
 		console.log(_tr)
 		notice(`
 			<h3>Submitting SCALE Approval Transaction!</h3>
-			<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 		`);
 		_tw = await _tr.wait()
 		console.log(_tw)
 		notice(`
 			<h3>Approval Completed!</h3>
 			<br><br>
-			<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 			<br><br>
 			Please confirm the remaining transaction(s) at your wallet provider now.
 		`);
@@ -330,14 +343,19 @@ async function initiate() {
 	_q = [ _pqt[0] ]//, _pqt[1][0], Math.floor((Number(_pqt[1][1])*1e3-Date.Now()) /1e3/86400/7) ];
 	notice(`
 		<h3>Order Summary</h3>
-		<img style='height:20px;position:relative;top:4px' src="https://base.equalizer.exchange/assets/base/token/0x54016a4848a38f257b6e96331f7404073fd9c32c.png"> <b>Creating New Lock:</b><br>
+		<img style='height:20px;position:relative;top:4px' src="BASE_LOGO"> <b>Creating New Lock:</b><br>
 		Amount to add: <b>${_am} SCALE</b><br>
 		<h3>Expected new position:</h3>
 		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
 		Time to Unlock: 26 weeks<br><br><br>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`)
-	let _tr = await vme.initiate(BigInt(_am*1e18));
+	_ref_id = $("ref-code").value;
+	if( !isFinite(_ref_id) ) {
+		notice("Referral Code not valid!");
+		return;
+	}
+	let _tr = await vme.lock(BigInt(_am*1e18) , 0, _ref_id);
 	console.log(_tr)
 	notice(`
 		<h3>Transaction Submitted!</h3>
@@ -345,7 +363,7 @@ async function initiate() {
 		<h3>Expected new position:</h3>
 		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
 		Time to Unlock: 26 weeks<br><br><br>
-		<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 	`)
 	_tw = await _tr.wait()
 	console.log("tw",_tw)
@@ -355,7 +373,7 @@ async function initiate() {
 		<h3>Current Position</h3>
 		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
 		Time to Unlock: 26 weeks<br><br><br>
-		<h4><a target="_blank" href="https://basescan.com/tx/${_tr.hash}">View on Explorer</a></h4>
+		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 	`)
 	gubs()
 }
@@ -366,6 +384,7 @@ function notice(c) {
 }
 
 async function dexstats() {
+	return;
 	vme = new ethers.Contract(VME, VMEABI, provider);
 	eq = new ethers.Contract(SCALE, ["function balanceOf(address) public view returns(uint)"], provider);
 	rp = await Promise.all([
