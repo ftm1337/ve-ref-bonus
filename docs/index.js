@@ -172,7 +172,22 @@ async function gubs() {
 	  $("ref-desc").innerHTML = `
 	  	You have ${refids.length} Referral Codes.
 	  	<br>
-	  	<i>${refids.join(", ")}</i>
+	  	<i>${
+	  		refids
+	  		.map( i=> `
+	  			<div class="equal-gradient-text">
+	  			${
+	  				(window.location.toString())
+	  				.split(BASE_NAME.toLowerCase())[0]
+	  				+ BASE_NAME.toLowerCase()
+	  				+ "?r="
+	  				+ i
+	  			}
+	  			</div>
+	  		`)
+  			.join("<br>")
+	  		}
+	  	</i>
 	  `;
 	}
 
@@ -318,6 +333,7 @@ async function initiate() {
 		notice(`
 			<h3>Approval required for ${BASE_NAME}</h3>
 			Approval is required to add ${BASE_NAME} tokens to a new veNFT.
+			<br><br>
 			<li>Approve ${BASE_NAME} token</li>
 			<br><br>
 			<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
@@ -417,7 +433,7 @@ async function createNewref() {
 			<h3>Already active!</h3>
 			Your Referral Code is ${_id} and you can share it as:
 			<br><br>
-			<span class="equal-gradient">${(window.location.toString()).split(BASE_NAME.toLowerCase())[0]+BASE_NAME.toLowerCase()+"?r="+_id}
+			<span class="equal-gradient-text">${(window.location.toString()).split(BASE_NAME.toLowerCase())[0]+BASE_NAME.toLowerCase()+"?r="+_id}
 		`);
 	}
 	else {
@@ -437,7 +453,7 @@ async function createNewref() {
 			<br><br>
 			Your Referral Code is ${_id} and you can share it as:
 			<br><br>
-			<span class="equal-gradient">${(window.location.toString()).split(BASE_NAME.toLowerCase())[0]+BASE_NAME.toLowerCase()+"?r="+_id}
+			<span class="equal-gradient-text">${(window.location.toString()).split(BASE_NAME.toLowerCase())[0]+BASE_NAME.toLowerCase()+"?r="+_id}
 		`);
 	}
 	gubs()
