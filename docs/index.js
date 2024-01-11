@@ -143,8 +143,8 @@ VMEABI = [{"inputs": [{"internalType": "address","name": "","type": "address"}],
 
 async function gubs() {
 	veq = new ethers.Contract(VENFT, VEABI, provider);
-	eq = new ethers.Contract(SCALE, ["function balanceOf(address) public view returns(uint)"], provider);
-	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " SCALE"})
+	eq = new ethers.Contract(BASE, ["function balanceOf(address) public view returns(uint)"], provider);
+	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " ${BASE_NAME}"})
 	bal = await veq.balanceOf(window.ethereum.selectedAddress);
 	if (bal == 0) $("nft-bal").innerHTML = "No NFTs owned!";
 	else {
@@ -186,7 +186,7 @@ async function quote() {
 	_top = m.offerPrice();
 	_pqt = await Promise.all([_qq, _top]);
 	_q = _pqt[0];
-	$("nft-amt").innerHTML = fornum(_q[1],18) + " SCALE";
+	$("nft-amt").innerHTML = fornum(_q[1],18) + " " + BASE_NAME;
 	$("nft-tl").innerHTML = Number(_q[2]) + " Weeks";
 	$("nft-offer").innerHTML = fornum(_q[0]/1e18 * _pqt[1]/1e18 , 0) + " ETH";
 	$("claim-offer").innerHTML = "Claim "+fornum(_q[0]/1e18 * _pqt[1]/1e18 , 0) + " ETH";
@@ -228,16 +228,16 @@ async function extend() {
 	}
 	if(Number(al[1])<=_am*1e18) {
 		notice(`
-			<h3>Approval required for SCALE</h3>
-			Approval is required to add SCALE to your veNFT#${_id}.
-			<li>Approve SCALE token</li>
+			<h3>Approval required for ${BASE_NAME}</h3>
+			Approval is required to add ${BASE_NAME} to your veNFT#${_id}.
+			<li>Approve ${BASE_NAME} token</li>
 			<br><br>
 			<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 		`);
 		let _tr = await eq.approve(VME,ethers.constants.MaxUint256);
 		console.log(_tr)
 		notice(`
-			<h3>Submitting SCALE Approval Transaction!</h3>
+			<h3>Submitting ${BASE_NAME} Approval Transaction!</h3>
 			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 		`);
 		_tw = await _tr.wait()
@@ -257,13 +257,13 @@ async function extend() {
 	notice(`
 		<h3>Order Summary</h3>
 		<img style='height:20px;position:relative;top:4px' src="BASE_LOGO"> <b>Extending old Lock:</b><br>
-		Amount to add: <b>${_am} SCALE</b><br>
+		Amount to add: <b>${_am} ${BASE_NAME}</b><br>
 		NFT Token ID: <u>#<b>${_id}</b></u><br>
 		<h3>Current Position</h3>
-		Old Amount Locked: <u>${fornum(_q[1],18)} SCALE</u><br>
+		Old Amount Locked: <u>${fornum(_q[1],18)} ${BASE_NAME}</u><br>
 		Old Time to Unlock: <u>${Number(_q[2])} Weeks</u> from now<br><br>
 		<h3>Expected Bonus:</h3>
-		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
+		Locked amount: <u>${fornum(_q[0] , 18)} ${BASE_NAME}</u><br>
 		<h3>Expected new unlock time:</h3>
 		Time to Unlock: 26 weeks<br><br><br>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
@@ -277,13 +277,13 @@ async function extend() {
 	console.log(_tr)
 	notice(`
 		<h3>Transaction Submitted!</h3>
-		<br><h4>Locking more SCALE</h4>
+		<br><h4>Locking more ${BASE_NAME}</h4>
 		NFT Token ID: <u>#<b>${_id}</b></u><br>
 		<h3>Current Position</h3>
-		Old Amount Locked: <u>${fornum(_q[1],18)} SCALE</u><br>
+		Old Amount Locked: <u>${fornum(_q[1],18)} ${BASE_NAME}</u><br>
 		Old Time to Unlock: <u>${Number(_q[2])} Weeks</u> from now<br><br>
 		<h3>Expected Bonus:</h3>
-		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
+		Locked amount: <u>${fornum(_q[0] , 18)} ${BASE_NAME}</u><br>
 		<h3>Expected new unlock time:</h3>
 		Time to Unlock: 26 weeks<br><br><br>
 		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
@@ -294,7 +294,7 @@ async function extend() {
 		<h3>Order Completed!</h3>
 		NFT Token ID: <u>#<b>${_id}</b></u><br>
 		<h3>Current Position</h3>
-		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
+		Locked amount: <u>${fornum(_q[0] , 18)} ${BASE_NAME}</u><br>
 		Time to Unlock: 26 weeks<br><br><br>
 		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 	`)
@@ -308,23 +308,23 @@ async function initiate() {
 	veq = new ethers.Contract(VENFT, VEABI, signer);
 	VME = REFC
 	vme = new ethers.Contract(VME, VMEABI, signer);
-	eq = new ethers.Contract(SCALE, ["function approve(address,uint)", "function allowance(address,address) public view returns(uint)"], signer);
+	eq = new ethers.Contract(BASE, ["function approve(address,uint)", "function allowance(address,address) public view returns(uint)"], signer);
 	al = await Promise.all([
 		//veq.isApprovedOrOwner(VME, _id),
 		eq.allowance(window.ethereum.selectedAddress, VME)
 	]);
 	if(Number(al[0])<=_am*1e18) {
 		notice(`
-			<h3>Approval required for SCALE</h3>
-			Approval is required to add SCALE tokens to a new veNFT.
-			<li>Approve SCALE token</li>
+			<h3>Approval required for ${BASE_NAME}</h3>
+			Approval is required to add ${BASE_NAME} tokens to a new veNFT.
+			<li>Approve ${BASE_NAME} token</li>
 			<br><br>
 			<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 		`);
 		let _tr = await eq.approve(VME,ethers.constants.MaxUint256);
 		console.log(_tr)
 		notice(`
-			<h3>Submitting SCALE Approval Transaction!</h3>
+			<h3>Submitting ${BASE_NAME} Approval Transaction!</h3>
 			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 		`);
 		_tw = await _tr.wait()
@@ -344,9 +344,9 @@ async function initiate() {
 	notice(`
 		<h3>Order Summary</h3>
 		<img style='height:20px;position:relative;top:4px' src="BASE_LOGO"> <b>Creating New Lock:</b><br>
-		Amount to add: <b>${_am} SCALE</b><br>
+		Amount to add: <b>${_am} ${BASE_NAME}</b><br>
 		<h3>Expected new position:</h3>
-		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
+		Locked amount: <u>${fornum(_q[0] , 18)} ${BASE_NAME}</u><br>
 		Time to Unlock: 26 weeks<br><br><br>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`)
@@ -359,9 +359,9 @@ async function initiate() {
 	console.log(_tr)
 	notice(`
 		<h3>Transaction Submitted!</h3>
-		<br><h4>Locking more SCALE</h4>
+		<br><h4>Locking more ${BASE_NAME}</h4>
 		<h3>Expected new position:</h3>
-		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
+		Locked amount: <u>${fornum(_q[0] , 18)} ${BASE_NAME}</u><br>
 		Time to Unlock: 26 weeks<br><br><br>
 		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 	`)
@@ -371,10 +371,72 @@ async function initiate() {
 		<h3>Order Completed!</h3>
 		<!--NFT Token ID: <u>#<b>${_id}</b></u><br>-->
 		<h3>Current Position</h3>
-		Locked amount: <u>${fornum(_q[0] , 18)} SCALE</u><br>
+		Locked amount: <u>${fornum(_q[0] , 18)} ${BASE_NAME}</u><br>
 		Time to Unlock: 26 weeks<br><br><br>
 		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 	`)
+	gubs()
+}
+
+async function newref() {
+	notice(`
+		<div>
+			<h3>Create a New Referral Code</h3>
+			Which veNFT would you like to have your referral earnings credited to?
+			<br><br>
+			<select class="equal-gradient" id="ref-nft-sel" onchange="createNewref()">
+				<option value="" selected>Choose a NFT</option>
+			</select>
+			<br><br>
+			<h3>Didnt find a veNFT in wallet?</h3>
+			You can easily create a new veNFT by locking some ${BASE_NAME} and start earning Voting Incentives & Referral Commission!
+			<br><br>
+			<button class="submit equal-gradient" onclick='window.location="${BASE_DAPP}/lock"'>Create 🔒</button>
+			<br><br>
+	`);
+}
+async function createNewref() {
+	_id = $("ref-nft-sel").value;
+	notice(`
+		<div>
+			<h3>Creating a New Referral Code</h3>
+			<h2>veNFT #${_id}</h2>
+	`);
+	veq = new ethers.Contract(VENFT, VEABI, signer);
+	VME = REFC
+	vme = new ethers.Contract(VME, VMEABI, signer);
+	eq = new ethers.Contract(BASE, ["function approve(address,uint)", "function allowance(address,address) public view returns(uint)"], signer);
+	al = await Promise.all([
+		veq.isApprovedOrOwner(VME, _id)
+	]);
+	if(al[0]) {
+		notice(`
+			<h3>Already active!</h3>
+			Your Referral Code is ${_id} and you can share it as:
+			<br><br>
+			<span class="equal-gradient">${(window.location.toString()).split(BASE_NAME.toLowerCase())[0]+BASE_NAME.toLowerCase()+"?r="+_id}
+		`);
+	}
+	else {
+		let _tr = await veq.approve(VME,_id);
+		console.log(_tr)
+		notice(`
+			<h3>Creating Referral code!</h3>
+			<h2>veNFT #${_id}</h2>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
+		`);
+		_tw = await _tr.wait()
+		console.log(_tw)
+		notice(`
+			<h3>Ref Code Created!</h3>
+			<br><br>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
+			<br><br>
+			Your Referral Code is ${_id} and you can share it as:
+			<br><br>
+			<span class="equal-gradient">${(window.location.toString()).split(BASE_NAME.toLowerCase())[0]+BASE_NAME.toLowerCase()+"?r="+_id}
+		`);
+	}
 	gubs()
 }
 
@@ -386,7 +448,7 @@ function notice(c) {
 async function dexstats() {
 	return;
 	vme = new ethers.Contract(VME, VMEABI, provider);
-	eq = new ethers.Contract(SCALE, ["function balanceOf(address) public view returns(uint)"], provider);
+	eq = new ethers.Contract(BASE, ["function balanceOf(address) public view returns(uint)"], provider);
 	rp = await Promise.all([
 		vme.FACTOR()//, eq.balanceOf(VME)
 	]);
