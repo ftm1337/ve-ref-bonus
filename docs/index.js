@@ -144,7 +144,7 @@ VMEABI = [{"inputs": [{"internalType": "address","name": "","type": "address"}],
 async function gubs() {
 	veq = new ethers.Contract(VENFT, VEABI, provider);
 	eq = new ethers.Contract(BASE, ["function balanceOf(address) public view returns(uint)"], provider);
-	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " ${BASE_NAME}"})
+	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " "+ BASE_NAME );
 	bal = await veq.balanceOf(window.ethereum.selectedAddress);
 	if (bal == 0) $("nft-bal").innerHTML = "No NFTs owned!";
 	else {
@@ -230,6 +230,7 @@ async function extend() {
 		notice(`
 			<h3>Approval required for ${BASE_NAME}</h3>
 			Approval is required to add ${BASE_NAME} to your veNFT#${_id}.
+			<br><br>
 			<li>Approve ${BASE_NAME} token</li>
 			<br><br>
 			<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
@@ -250,7 +251,7 @@ async function extend() {
 			Please confirm the remaining transaction(s) at your wallet provider now.
 		`);
 	}
-	_offer = vme.offer(BigInt(_am*1e18));
+	_offer = BigInt(Math.floor(_am * 1e18 + _am * _bonuses[0]));
 	_current = veq.locked(_id);
 	_pqt = await Promise.all([_offer,_current]);
 	_q = [ _pqt[0], _pqt[1][0], Math.floor((Number(_pqt[1][1])*1e3-Date.now()) /1e3/86400/7) ];
@@ -337,7 +338,8 @@ async function initiate() {
 			Please confirm the remaining transaction(s) at your wallet provider now.
 		`);
 	}
-	_offer = vme.offer(BigInt(_am*1e18));
+	_offer = BigInt(Math.floor(_am * 1e18 + _am * _bonuses[0]));
+	//_offer = vme.offer(BigInt(_am*1e18));
 	//_current = veq.locked(_id);
 	_pqt = await Promise.all([_offer/*,_current*/]);
 	_q = [ _pqt[0] ]//, _pqt[1][0], Math.floor((Number(_pqt[1][1])*1e3-Date.Now()) /1e3/86400/7) ];
@@ -385,7 +387,7 @@ async function newref() {
 			Which veNFT would you like to have your referral earnings credited to?
 			<br><br>
 			<select class="equal-gradient" id="ref-nft-sel" onchange="createNewref()">
-				<option value="" selected>Choose a NFT</option>
+				${ $("nft-sel").innerHTML }
 			</select>
 			<br><br>
 			<h3>Didnt find a veNFT in wallet?</h3>
@@ -401,6 +403,7 @@ async function createNewref() {
 		<div>
 			<h3>Creating a New Referral Code</h3>
 			<h2>veNFT #${_id}</h2>
+		</div>
 	`);
 	veq = new ethers.Contract(VENFT, VEABI, signer);
 	VME = REFC
