@@ -144,7 +144,7 @@ VMEABI = [{"inputs": [{"internalType": "address","name": "","type": "address"}],
 async function gubs() {
 	veq = new ethers.Contract(VENFT, VEABI, provider);
 	eq = new ethers.Contract(BASE, ["function balanceOf(address) public view returns(uint)"], provider);
-	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " "+ BASE_NAME );
+	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " "+ BASE_NAME });
 	bal = await veq.balanceOf(window.ethereum.selectedAddress);
 	if (bal == 0) $("nft-bal").innerHTML = "No NFTs owned!";
 	else {
