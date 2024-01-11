@@ -260,7 +260,6 @@ async function extend() {
 		console.log(_tw)
 		notice(`
 			<h3>Approval Completed!</h3>
-			<br><br>
 			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 			<br><br>
 			Please confirm the remaining transaction(s) at your wallet provider now.
@@ -348,7 +347,6 @@ async function initiate() {
 		console.log(_tw)
 		notice(`
 			<h3>Approval Completed!</h3>
-			<br><br>
 			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 			<br><br>
 			Please confirm the remaining transaction(s) at your wallet provider now.
@@ -448,7 +446,6 @@ async function createNewref() {
 		console.log(_tw)
 		notice(`
 			<h3>Ref Code Created!</h3>
-			<br><br>
 			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 			<br><br>
 			Your Referral Code is ${_id} and you can share it as:
@@ -460,6 +457,7 @@ async function createNewref() {
 }
 
 async function revokeRef(_id) {
+	veq = new ethers.Contract(VENFT, VEABI, signer);
 	notice(`
 		<h3>Revoking Referral code!</h3>
 		<h2>⛔ veNFT #${_id}</h2>
