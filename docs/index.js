@@ -172,22 +172,22 @@ async function gubs() {
 	  $("ref-desc").innerHTML = `
 	  	You have ${refids.length} Referral Codes.
 	  	<br>
-	  	<i>${
+	  	${
 	  		refids
 	  		.map( i=> `
 	  			<div class="equal-gradient-text">
-	  			${
+	  			<span onclick="revokeRef(i)">⛔</span>
+	  			<i>${
 	  				(window.location.toString())
 	  				.split(BASE_NAME.toLowerCase())[0]
 	  				+ BASE_NAME.toLowerCase()
 	  				+ "?r="
 	  				+ i
-	  			}
+	  			}</i>
 	  			</div>
 	  		`)
-  			.join("<br>")
-	  		}
-	  	</i>
+	  		.join("")
+	  	}
 	  `;
 	}
 
@@ -272,7 +272,7 @@ async function extend() {
 	_q = [ _pqt[0], _pqt[1][0], Math.floor((Number(_pqt[1][1])*1e3-Date.now()) /1e3/86400/7) ];
 	notice(`
 		<h3>Order Summary</h3>
-		<img style='height:20px;position:relative;top:4px' src="BASE_LOGO"> <b>Extending old Lock:</b><br>
+		<img style='height:20px;position:relative;top:4px' src="${BASE_LOGO}"> <b>Extending old Lock:</b><br>
 		Amount to add: <b>${_am} ${BASE_NAME}</b><br>
 		NFT Token ID: <u>#<b>${_id}</b></u><br>
 		<h3>Current Position</h3>
@@ -361,7 +361,7 @@ async function initiate() {
 	_q = [ _pqt[0] ]//, _pqt[1][0], Math.floor((Number(_pqt[1][1])*1e3-Date.Now()) /1e3/86400/7) ];
 	notice(`
 		<h3>Order Summary</h3>
-		<img style='height:20px;position:relative;top:4px' src="BASE_LOGO"> <b>Creating New Lock:</b><br>
+		<img style='height:20px;position:relative;top:4px' src="${BASE_LOGO}"> <b>Creating New Lock:</b><br>
 		Amount to add: <b>${_am} ${BASE_NAME}</b><br>
 		<h3>Expected new position:</h3>
 		Locked amount: <u>${fornum(_q[0] , 18)} ${BASE_NAME}</u><br>
@@ -373,7 +373,7 @@ async function initiate() {
 		notice("Referral Code not valid!");
 		return;
 	}
-	let _tr = await vme.lock(BigInt(_am*1e18) , 0, _ref_id);
+	let _tr = await vme.lock(BigInt(Math.floor(_am*1e18)) , 0, _ref_id);
 	console.log(_tr)
 	notice(`
 		<h3>Transaction Submitted!</h3>
@@ -457,6 +457,29 @@ async function createNewref() {
 		`);
 	}
 	gubs()
+}
+
+async function revokeRef(_id) {
+	notice(`
+		<h3>Revoking Referral code!</h3>
+		<h2>⛔ veNFT #${_id}</h2>
+		<br><br>
+	`);
+	let _tr = await veq.approve("0x0000000000000000000000000000000000000000",_id);
+	console.log(_tr)
+	notice(`
+		<h3>Revoking Referral code!</h3>
+		<h2>veNFT #${_id}</h2>
+		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
+	`);
+	_tw = await _tr.wait()
+	console.log(_tw)
+	notice(`
+		<h3>Ref Code Revoked!</h3>
+		<br><br>
+		<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
+		<br><br>
+	`);
 }
 
 function notice(c) {
