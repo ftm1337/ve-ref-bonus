@@ -143,6 +143,7 @@ VMEABI = [{"inputs": [{"internalType": "address","name": "_ve","type": "address"
 
 async function gubs() {
 	veq = new ethers.Contract(VENFT, VEABI, provider);
+	vme = new ethers.Contract(VME, VMEABI, signer);
 	eq = new ethers.Contract(BASE, ["function balanceOf(address) public view returns(uint)"], provider);
 	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{
 		$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " "+ BASE_NAME ;
@@ -178,7 +179,7 @@ async function gubs() {
 	  		.split(BASE_NAME.toLowerCase())[0]
 	  		+ BASE_NAME.toLowerCase()
 	  		+ "?r="
-	  		+ Number(vm)
+	  		+ Number(await vme.refIdOf(window.ethereum.selectedAddress))
 	  	}</i>
 	  	</div>
 	  `
