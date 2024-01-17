@@ -146,7 +146,6 @@ async function gubs() {
 	eq = new ethers.Contract(BASE, ["function balanceOf(address) public view returns(uint)"], provider);
 	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{
 		$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " "+ BASE_NAME ;
-		$("newref-add-bal").innerHTML = Math.floor(Number(r)/1e18) + " "+ BASE_NAME ;
 	});
 	bal = await veq.balanceOf(window.ethereum.selectedAddress);
 	if (bal == 0) $("nft-bal").innerHTML = "No NFTs owned!";
@@ -356,7 +355,7 @@ async function initiate() {
 			<br><br>
 			<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 		`);
-		let _tr = await eq.approve(VME,BigInt(Math.floor()));
+		let _tr = await eq.approve(VME,BigInt(Math.floor(_am*1e18)));
 		console.log(_tr)
 		notice(`
 			<h3>Submitting ${BASE_NAME} Approval Transaction!</h3>
@@ -420,9 +419,9 @@ async function newref() {
 			To create a new Referral Code, you must create a new veNFT with at least ${NEWREF_MIN} ${BASE_NAME}.
 			<h4>How much would you like to add?</h4>
         	<span class="nft-amtl" id="new-ref-amt"><input placeholder="Amount to Lock" id="lock-amt" value="${NEWREF_MIN}"></span>
-      		<br>Available Balance: <span id="newref-add-bal">0</span> ${BASE_NAME}</span>
+      		<br>Available Balance: <span id="newref-add-bal">${Number(await veq.balanceOf(window.ethereum.selectedAddress))/1e18}</span> ${BASE_NAME}</span>
         	<br><br>
-			<button class="submit equal-gradient" onclick='window.location="${BASE_DAPP}/lock"'>Create Ref Code 🔒</button>
+			<button class="submit equal-gradient">Create Ref Code 🔒</button>
 			<br><br>
 		</div>
 	`);
