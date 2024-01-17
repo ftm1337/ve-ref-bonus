@@ -139,12 +139,15 @@ VEABI = [{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","
 VMABI = [{"anonymous": false,"inputs": [{"indexed": true,"internalType": "address","name": "seller","type": "address"},{"indexed": false,"internalType": "uint256","name": "id","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "paid","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "locked","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "wks","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "wen","type": "uint256"}],"name": "Sale","type": "event"},{"inputs": [{"internalType": "address","name": "_to","type": "address"},{"internalType": "bytes","name": "_data","type": "bytes"}],"name": "customCall","outputs": [{"internalType": "bytes","name": "","type": "bytes"}],"stateMutability": "payable","type": "function"},{"inputs": [{"internalType": "address","name": "to","type": "address"},{"internalType": "uint256","name": "amount","type": "uint256"},{"internalType": "bytes","name": "_data","type": "bytes"}],"name": "customCall","outputs": [{"internalType": "bytes","name": "","type": "bytes"}],"stateMutability": "payable","type": "function"},{"inputs": [{"internalType": "address[]","name": "_tos","type": "address[]"},{"internalType": "uint256[]","name": "_amounts","type": "uint256[]"},{"internalType": "bytes[]","name": "_datas","type": "bytes[]"}],"name": "customCall","outputs": [{"internalType": "bytes[]","name": "retdata","type": "bytes[]"}],"stateMutability": "payable","type": "function"},{"inputs": [],"name": "dao","outputs": [{"internalType": "address","name": "","type": "address"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "v","type": "uint256"}],"name": "getQuote","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "v","type": "uint256"}],"name": "getQuoted","outputs": [{"internalType": "uint256","name": "","type": "uint256"},{"internalType": "uint256","name": "","type": "uint256"},{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "a","type": "uint256"},{"internalType": "uint256","name": "w","type": "uint256"}],"name": "getRawQuote","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "pure","type": "function"},{"inputs": [],"name": "homeID","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256[]","name": "f","type": "uint256[]"},{"internalType": "uint256","name": "t","type": "uint256"}],"name": "multiMerge","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [],"name": "offerPrice","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "offerToken","outputs": [{"internalType": "address","name": "","type": "address"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"},{"internalType": "address","name": "","type": "address"},{"internalType": "uint256","name": "","type": "uint256"},{"internalType": "bytes","name": "","type": "bytes"}],"name": "onERC721Received","outputs": [{"internalType": "bytes4","name": "","type": "bytes4"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "tokensPaid","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "tradesCounter","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "tokenAddress","type": "address"},{"internalType": "uint256","name": "tokens","type": "uint256"}],"name": "rescue","outputs": [{"internalType": "bool","name": "success","type": "bool"}],"stateMutability": "nonpayable","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "sales","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "veid","type": "uint256"}],"name": "sell","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [{"internalType": "uint256","name": "id","type": "uint256"}],"name": "setHomeID","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [{"internalType": "address","name": "t","type": "address"},{"internalType": "uint256","name": "p","type": "uint256"}],"name": "setOffer","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [],"name": "totalTrades","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "totalVolume","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "veToken","outputs": [{"internalType": "address","name": "","type": "address"}],"stateMutability": "view","type": "function"}]
 
 //VMEABI = [{"inputs":[{"internalType":"address","name":"_ve","type":"address"},{"internalType":"address","name":"_eq","type":"address"},{"internalType":"address","name":"_vo","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"EQ","outputs":[{"internalType":"contract IT","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FACTOR","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAXTIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"VE","outputs":[{"internalType":"contract IVe","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"VO","outputs":[{"internalType":"contract IVo","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"extend","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"initiate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"offer","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"uint256","name":"tokens","type":"uint256"}],"name":"rescue","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_f","type":"uint256"}],"name":"setFactor","outputs":[],"stateMutability":"nonpayable","type":"function"}];
-VMEABI = [{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "earnedRefBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "_amt","type": "uint256"},{"internalType": "uint256","name": "_nft","type": "uint256"},{"internalType": "uint256","name": "_ref","type": "uint256"}],"name": "lock","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [],"name": "lockBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "refBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"}];
+VMEABI = [{"inputs": [{"internalType": "address","name": "_ve","type": "address"}],"stateMutability": "nonpayable","type": "constructor"},{"anonymous": false,"inputs": [{"indexed": true,"internalType": "address","name": "","type": "address"},{"indexed": true,"internalType": "address","name": "","type": "address"},{"indexed": true,"internalType": "uint256","name": "","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "","type": "uint256"}],"name": "Bonus","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"internalType": "address","name": "","type": "address"},{"indexed": false,"internalType": "uint256","name": "","type": "uint256"},{"indexed": false,"internalType": "uint256","name": "","type": "uint256"}],"name": "ReferralCodeCreated","type": "event"},{"inputs": [],"name": "MAX_TIME","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "MIN_AMT","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "base","outputs": [{"internalType": "contract IERC20","name": "","type": "address"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "_amt","type": "uint256"}],"name": "createReferralCode","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "nonpayable","type": "function"},{"inputs": [],"name": "dao","outputs": [{"internalType": "address","name": "","type": "address"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "earnedLockBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "earnedRefBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "lockBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "_amt","type": "uint256"},{"internalType": "uint256","name": "_nft","type": "uint256"},{"internalType": "uint256","name": "_ref","type": "uint256"}],"name": "lockWithReferral","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [],"name": "refBonus","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "","type": "address"}],"name": "refIdOf","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "uint256","name": "","type": "uint256"}],"name": "refOwnerOf","outputs": [{"internalType": "address","name": "","type": "address"}],"stateMutability": "view","type": "function"},{"inputs": [{"internalType": "address","name": "_t","type": "address"},{"internalType": "uint256","name": "_a","type": "uint256"}],"name": "rescue","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [{"internalType": "uint256","name": "_min","type": "uint256"},{"internalType": "uint256","name": "_ref","type": "uint256"},{"internalType": "uint256","name": "_lock","type": "uint256"}],"name": "set","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [{"internalType": "address","name": "_d","type": "address"}],"name": "setDAO","outputs": [],"stateMutability": "nonpayable","type": "function"},{"inputs": [{"internalType": "address","name": "_who","type": "address"},{"internalType": "uint256","name": "_id","type": "uint256"}],"name": "validateRef","outputs": [{"internalType": "bool","name": "_isit","type": "bool"}],"stateMutability": "view","type": "function"},{"inputs": [],"name": "veNFT","outputs": [{"internalType": "contract IVotingEscrow","name": "","type": "address"}],"stateMutability": "view","type": "function"}];
 
 async function gubs() {
 	veq = new ethers.Contract(VENFT, VEABI, provider);
 	eq = new ethers.Contract(BASE, ["function balanceOf(address) public view returns(uint)"], provider);
-	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " "+ BASE_NAME });
+	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{
+		$("nft-amt").innerHTML = Math.floor(Number(r)/1e18) + " "+ BASE_NAME ;
+		$("newref-add-bal").innerHTML = Math.floor(Number(r)/1e18) + " "+ BASE_NAME ;
+	});
 	bal = await veq.balanceOf(window.ethereum.selectedAddress);
 	if (bal == 0) $("nft-bal").innerHTML = "No NFTs owned!";
 	else {
@@ -155,10 +158,10 @@ async function gubs() {
 	  }
 	  nids = await Promise.all(nid);
 	  balid = [];
-	  refid = [];
+	  ///refid = [];
 	  for(i=0;i<bal;i++) {
 	  	balid[i]=veq.locked(Number(nids[i]));
-	  	refid[i]=veq.isApprovedOrOwner(REFC,Number(nids[i]));
+	  	///refid[i]=veq.isApprovedOrOwner(REFC,Number(nids[i]));
 	  }
 	  balids = await Promise.all(balid);
 	  $("nft-sel").innerHTML = '<option value="" selected>Choose a NFT</option>';
@@ -167,6 +170,21 @@ async function gubs() {
 	  	  <option value='${nids[i]}'>#${nids[i]} : ${fornum(Number(balids[i][0]),18)} </option>
 	  	`
 	  }
+
+	  $("ref-desc").innerHTML = `
+	  	<div class="equal-gradient-text">
+	  	<!--<span onclick="revokeRef(i)">⛔</span>-->
+	  	<i>${
+	  		(window.location.toString())
+	  		.split(BASE_NAME.toLowerCase())[0]
+	  		+ BASE_NAME.toLowerCase()
+	  		+ "?r="
+	  		+ Number(vm)
+	  	}</i>
+	  	</div>
+	  `
+;
+	  /*
 	  refidsall = await Promise.all(refid);
 	  refids=nids.filter( (a,i) => refidsall[i] );
 	  $("ref-desc").innerHTML = `
@@ -176,7 +194,7 @@ async function gubs() {
 	  		refids
 	  		.map( i=> `
 	  			<div class="equal-gradient-text">
-	  			<span onclick="revokeRef(i)">⛔</span>
+	  			<!--<span onclick="revokeRef(i)">⛔</span>-->
 	  			<i>${
 	  				(window.location.toString())
 	  				.split(BASE_NAME.toLowerCase())[0]
@@ -189,6 +207,7 @@ async function gubs() {
 	  		.join("")
 	  	}
 	  `;
+	  */
 	}
 
 }
@@ -213,7 +232,7 @@ async function extend() {
 	_am = $("lock-amt").value;
 	veq = new ethers.Contract(VENFT, VEABI, signer);
 	VME = REFC;
-	vme = new ethers.Contract(VME, ["function lock(uint,uint,uint)"], signer);
+	vme = new ethers.Contract(VME, VMEABI, signer);
 	eq = new ethers.Contract(BASE, ["function approve(address,uint)", "function allowance(address,address) public view returns(uint)"], signer);
 	al = await Promise.all([
 		veq.isApprovedOrOwner(VME, _id),
@@ -250,7 +269,7 @@ async function extend() {
 			<br><br>
 			<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 		`);
-		let _tr = await eq.approve(VME,ethers.constants.MaxUint256);
+		let _tr = await eq.approve(VME,BigInt(Math.floor(_am*1e18)));
 		console.log(_tr)
 		notice(`
 			<h3>Submitting ${BASE_NAME} Approval Transaction!</h3>
@@ -288,7 +307,7 @@ async function extend() {
 		notice("Referral Code not valid!");
 		return;
 	}
-	let _tr = await vme.lock(BigInt(_am*1e18) , _id, _ref_id);
+	let _tr = await vme.lockWithReferral(BigInt(_am*1e18) , _id, _ref_id);
 	console.log(_tr)
 	notice(`
 		<h3>Transaction Submitted!</h3>
@@ -337,7 +356,7 @@ async function initiate() {
 			<br><br>
 			<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 		`);
-		let _tr = await eq.approve(VME,ethers.constants.MaxUint256);
+		let _tr = await eq.approve(VME,BigInt(Math.floor()));
 		console.log(_tr)
 		notice(`
 			<h3>Submitting ${BASE_NAME} Approval Transaction!</h3>
@@ -371,7 +390,7 @@ async function initiate() {
 		notice("Referral Code not valid!");
 		return;
 	}
-	let _tr = await vme.lock(BigInt(Math.floor(_am*1e18)) , 0, _ref_id);
+	let _tr = await vme.lockWithReferral(BigInt(Math.floor(_am*1e18)) , 0, _ref_id);
 	console.log(_tr)
 	notice(`
 		<h3>Transaction Submitted!</h3>
@@ -398,61 +417,97 @@ async function newref() {
 	notice(`
 		<div>
 			<h3>Create a New Referral Code</h3>
-			Which veNFT would you like to have your referral earnings credited to?
+			To create a new Referral Code, you must create a new veNFT with at least ${NEWREF_MIN} ${BASE_NAME}.
+			<h4>How much would you like to add?</h4>
+        	<span class="nft-amtl" id="new-ref-amt"><input placeholder="Amount to Lock" id="lock-amt" value="${NEWREF_MIN}"></span>
+      		<br>Available Balance: <span id="newref-add-bal">0</span> ${BASE_NAME}</span>
+        	<br><br>
+			<button class="submit equal-gradient" onclick='window.location="${BASE_DAPP}/lock"'>Create Ref Code 🔒</button>
 			<br><br>
-			<select class="equal-gradient" id="ref-nft-sel" onchange="createNewref()">
-				${ $("nft-sel").innerHTML }
-			</select>
-			<br><br>
-			<h3>Didnt find a veNFT in wallet?</h3>
-			You can easily create a new veNFT by locking some ${BASE_NAME} and start earning Voting Incentives & Referral Commission!
-			<br><br>
-			<button class="submit equal-gradient" onclick='window.location="${BASE_DAPP}/lock"'>Create 🔒</button>
-			<br><br>
+		</div>
 	`);
 }
 async function createNewref() {
-	_id = $("ref-nft-sel").value;
-	notice(`
-		<div>
-			<h3>Creating a New Referral Code</h3>
-			<h2>veNFT #${_id}</h2>
-		</div>
-	`);
+	_am = $("new-ref-amt").value;
 	veq = new ethers.Contract(VENFT, VEABI, signer);
 	VME = REFC
 	vme = new ethers.Contract(VME, VMEABI, signer);
-	eq = new ethers.Contract(BASE, ["function approve(address,uint)", "function allowance(address,address) public view returns(uint)"], signer);
+	eq = new ethers.Contract(BASE, ["function approve(address,uint)", "function allowance(address,address) public view returns(uint)", "function balanceOf(address) public view returns(uint)"], signer);
 	al = await Promise.all([
-		veq.isApprovedOrOwner(VME, _id)
+		//veq.isApprovedOrOwner(VME, _id),
+		eq.allowance(window.ethereum.selectedAddress, VME),
+		eq.balanceOf(window.ethereum.selectedAddress)
 	]);
-	if(al[0]) {
+	if(Number(al[1])<_am*1e18) {
 		notice(`
-			<h3>Already active!</h3>
-			Your Referral Code is ${_id} and you can share it as:
-			<br><br>
-			<span class="equal-gradient-text">${(window.location.toString()).split(BASE_NAME.toLowerCase())[0]+BASE_NAME.toLowerCase()+"?r="+_id}
+			<h3>Insufficient ${BASE_NAME} Balance!
+			<br>Desired: ${_am}
+			<br>Available: ${Number(al[1])/1e18}
 		`);
+		return;
 	}
-	else {
-		let _tr = await veq.approve(VME,_id);
+	if(Number(al[0])<=_am*1e18) {
+		notice(`
+			<h3>Approval required for ${BASE_NAME}</h3>
+			Approval is required to add ${BASE_NAME} tokens to a new veNFT.
+			<br><br>
+			<li>Approve ${BASE_NAME} token</li>
+			<br><br>
+			<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
+		`);
+		let _tr = await eq.approve(VME,BigInt(Math.floor(_am*1e18)));
 		console.log(_tr)
 		notice(`
-			<h3>Creating Referral code!</h3>
-			<h2>veNFT #${_id}</h2>
+			<h3>Submitting ${BASE_NAME} Approval Transaction!</h3>
 			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 		`);
 		_tw = await _tr.wait()
 		console.log(_tw)
 		notice(`
-			<h3>Ref Code Created!</h3>
+			<h3>Approval Completed!</h3>
 			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
 			<br><br>
-			Your Referral Code is ${_id} and you can share it as:
-			<br><br>
-			<span class="equal-gradient-text">${(window.location.toString()).split(BASE_NAME.toLowerCase())[0]+BASE_NAME.toLowerCase()+"?r="+_id}
+			Please confirm the remaining transaction(s) at your wallet provider now.
 		`);
 	}
+	{
+		notice(`
+			<h3>Creating New Referral</h3>
+			<br><br>
+			Please confirm the transaction at your wallet provider now.
+		`);
+		_tr = await vme.createReferralCode();
+		notice(`
+			<h3>Creating New Referral</h3>
+			Waiting for confirmation..
+			<br><br>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
+		`);
+		_tw = await _tr.wait();
+		notice(`
+			<h3>New Referral Code Created!</h3>
+			<br><br>
+			<h4><a target="_blank" href="${EXPLORE+_tr.hash}">View on Explorer</a></h4>
+		`);
+	}
+	{
+		newref = await vme.refIdOf(window.ethereum.selectedAddress);
+		notice(`
+			<h3>New Referral Code Created!</h3>
+			<h1>newref</h1>
+			<i>${
+	  			(window.location.toString())
+	  			.split(BASE_NAME.toLowerCase())[0]
+	  			+ BASE_NAME.toLowerCase()
+	  			+ "?r="
+	  			+ i
+			}</i>
+			<br><br>
+			Share referral codes with your friends and earn from their locks!
+		`);
+	}
+
+
 	gubs()
 }
 
