@@ -143,6 +143,7 @@ VMEABI = [{"inputs": [{"internalType": "address","name": "_ve","type": "address"
 
 async function gubs() {
 	veq = new ethers.Contract(VENFT, VEABI, provider);
+	VME=REFC;
 	vme = new ethers.Contract(VME, VMEABI, signer);
 	eq = new ethers.Contract(BASE, ["function balanceOf(address) public view returns(uint)"], provider);
 	eq.balanceOf(window.ethereum.selectedAddress).then(r=>{
