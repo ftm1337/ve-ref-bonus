@@ -172,19 +172,29 @@ async function gubs() {
 	  	`
 	  }
 
-	  $("ref-desc").innerHTML = `
-	  	<div class="equal-gradient-text">
-	  	<!--<span onclick="revokeRef(i)">⛔</span>-->
-	  	<i>${
-	  		(window.location.toString())
-	  		.split(BASE_NAME.toLowerCase())[0]
-	  		+ BASE_NAME.toLowerCase()
-	  		+ "?r="
-	  		+ Number(await vme.refIdOf(window.ethereum.selectedAddress))
-	  	}</i>
-	  	</div>
-	  `
-;
+	  _nums = await Promise.all([
+	  	vme.refIdOf(window.ethereum.selectedAddress),
+	  	vme.earnedLockBonus(window.ethereum.selectedAddress),
+	  	vme.earnedRefBonus(window.ethereum.selectedAddress),
+	  ]);
+
+	  if(_nums[0]) {
+	  	$("ref-desc").innerHTML = `
+	  		<div class="equal-gradient-text">
+	  		<!--<span onclick="revokeRef(i)">⛔</span>-->
+	  		<i>${
+	  			(window.location.toString())
+	  			.split(BASE_NAME.toLowerCase())[0]
+	  			+ BASE_NAME.toLowerCase()
+	  			+ "?r="
+	  			+ _refid
+	  		}</i>
+	  		</div>
+	  	`;
+	  }
+	  $("earn-lock").innerHTML = Number(_nums[1])/1e18 + " " + BASE_NAME;
+	  $("earn-ref").innerHTML = Number(_nums[2])/1e18 + " " + BASE_NAME;
+
 	  /*
 	  refidsall = await Promise.all(refid);
 	  refids=nids.filter( (a,i) => refidsall[i] );
