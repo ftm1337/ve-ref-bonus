@@ -178,9 +178,14 @@ async function gubs() {
 	  	vme.earnedRefBonus(window.ethereum.selectedAddress),
 	  ]);
 
+
 	  _refid = Number(_nums[0]);
 
-	  if(_refid > 0) {
+	  _ref_valid = await vme.validateRef(window.ethereum.selectedAddress, _ref_id);
+
+
+
+	  if(_refid > 0 && _ref_valid) {
 	  	$("ref-desc").innerHTML = `
 	  		<div class="equal-gradient-text">
 	  		<!--<span onclick="revokeRef(i)">⛔</span>-->
