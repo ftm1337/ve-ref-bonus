@@ -178,7 +178,9 @@ async function gubs() {
 	  	vme.earnedRefBonus(window.ethereum.selectedAddress),
 	  ]);
 
-	  if(Number(_nums[0]) > 0) {
+	  _refid = Number(_nums[0]);
+
+	  if(_refid > 0) {
 	  	$("ref-desc").innerHTML = `
 	  		<div class="equal-gradient-text">
 	  		<!--<span onclick="revokeRef(i)">⛔</span>-->
@@ -295,6 +297,22 @@ async function extend() {
 			Please confirm the remaining transaction(s) at your wallet provider now.
 		`);
 	}
+
+	_ref_id = $("ref-code").value;
+	notice(`<h3>Validating Referral Code</h3><h1>#${_ref_id}</h1>`);
+
+	_ref_owner = Number(await veq.ownerOf(_ref_id));
+
+	_ref_valid = await vme.validateRef(_ref_owner, _ref_id);
+
+
+
+	if( !isFinite(_ref_id) || !_ref_valid) {
+		notice("Referral Code is not valid!");
+		return;
+	}
+
+
 	_offer = BigInt(Math.floor(_am * 1e18 + _am * _bonuses[0]));
 	_current = veq.locked(_id);
 	_pqt = await Promise.all([_offer,_current]);
@@ -312,12 +330,7 @@ async function extend() {
 		<h3>Expected new unlock time:</h3>
 		Time to Unlock: 26 weeks<br><br><br>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
-	`)
-	_ref_id = $("ref-code").value;
-	if( !isFinite(_ref_id) ) {
-		notice("Referral Code not valid!");
-		return;
-	}
+	`);
 	let _tr = await vme.lockWithReferral(BigInt(_am*1e18) , _id, _ref_id);
 	console.log(_tr)
 	notice(`
